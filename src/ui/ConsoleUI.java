@@ -93,4 +93,11 @@ public class ConsoleUI implements JogoUI{
             System.out.println("Jogador 2: " + jogador2.somarPontos() + " pontos");
         }
     }
+
+    @Override
+    public int escolherLado() {
+        System.out.println("\nEm que lado você deseja colocar a peça?\n0 - Esquerda\n1 Direita");
+        int lado = scanner.nextInt();
+        return lado;
+    }
 }

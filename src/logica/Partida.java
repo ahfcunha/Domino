@@ -1,15 +1,17 @@
 package logica;
 
+import ui.ConsoleUI;
 import ui.JogoUI;
 
 import java.util.ArrayList;
 
 public class Partida {
-    Tabuleiro tabuleiro = new Tabuleiro();
+    JogoUI ui = new ConsoleUI();
+    Tabuleiro tabuleiro = new Tabuleiro(ui);
     Jogador jogador1 = new Jogador();
     Jogador jogador2 = new Jogador();
     ArrayList<Peca> monte = Peca.gerarPecas();
-    private JogoUI ui;
+
 
     public Partida(JogoUI ui){
         this.ui = ui;
@@ -38,7 +40,7 @@ public class Partida {
                         jogador.removerPeca(indice);
                         jogadaValida = true;
                     } else {
-                        ui.mostrarMensagem("\nNÃO É POSSÍVEL ADICIONAR ESSA PEÇA AO TABULEIRO!");
+                        ui.mostrarMensagem("\nVOCÊ NÃO PODE ADICIONAR ESSA PEÇA!");
                     }
                 } else {
                     ui.mostrarMensagem("\nÍNDICE INVÁLIDO!");

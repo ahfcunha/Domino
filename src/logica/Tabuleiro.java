@@ -2,81 +2,76 @@ package logica;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import ui.JogoUI;
 
 public class Tabuleiro {
     private ArrayDeque<Peca> t = new ArrayDeque<>();
+    private JogoUI ui;
 
-    public boolean addPeca(int indice, ArrayList<Peca> mao) {
+    public Tabuleiro(JogoUI ui){
+        this.ui = ui;
+    }
+
+    public boolean encaixaEsquerda(Peca p){
+        int pontaEsquerda = t.peekFirst().getValorA();
+        return p.getValorA() == pontaEsquerda || p.getValorB() == pontaEsquerda;
+    }
+
+    public boolean encaixaDireita(Peca p){
+        int pontaDireita = t.peekLast().getValorB();
+        return p.getValorA() == pontaDireita || p.getValorB() == pontaDireita;
+    }
+
+    public boolean addPeca(int indice, ArrayList<Peca> mao){
         Peca p = mao.get(indice);
 
         if (t.isEmpty()) {
             t.add(p);
             return true;
         }
+        if(!encaixaDireita(p) && !encaixaEsquerda(p)){
+            return false;
+        }
 
+        int ladoEscolhido;
+
+        if(encaixaDireita(p) && encaixaEsquerda(p)){
+            ladoEscolhido = ui.escolherLado();
+        }
+        else{
+            ladoEscolhido = encaixaEsquerda(p) ? 0 : 1;
+        }
+        return addPecaLado(ladoEscolhido, p);
+    }
+
+    public boolean addPecaLado(int ladoEscolhido, Peca p){
         int pontaEsquerda = t.peekFirst().getValorA();
-
         int pontaDireita = t.peekLast().getValorB();
-
-
-        if (p.getValorB() == pontaEsquerda) {
+        if(ladoEscolhido == 0){
+            if(p.getValorA() == pontaEsquerda){
+                p.mudarOrientacao();
+            }
             t.addFirst(p);
-            return true;
-        } else if (p.getValorA() == pontaEsquerda) {
-            p.mudarOrientacao();
-            t.addFirst(p);
-            return true;
+        }
+        else{
+            if(p.getValorB() == pontaDireita){
+                p.mudarOrientacao();
+            }
+            t.addLast(p);
         }
 
-
-
-        if (p.getValorA() == pontaDireita) {
-            t.addLast(p);
-            return true;
-        } else if (p.getValorB() == pontaDireita) {
-            p.mudarOrientacao();
-            t.addLast(p);
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
-    public boolean verificarJogada (ArrayList<Peca> mao){
+    public boolean verificarJogada(ArrayList<Peca> mao){
+        if(t.isEmpty()) return true;
+
         for(Peca p : mao){
-            int lado = p.getValorA();
-            if(t.isEmpty()){
-                return true;
-            }
-
-            int pontaEsquerda = t.peekFirst().getValorA();
-            if(pontaEsquerda == lado){
-                return true;
-            }
-
-            int pontaDireita = t.peekLast().getValorB();
-            if(pontaDireita == lado){
-                return true;
-            }
-            p.mudarOrientacao();
-            lado = p.getValorA();
-            if(t.isEmpty()){
-                return true;
-            }
-
-            pontaEsquerda = t.peekFirst().getValorA();
-            if(pontaEsquerda == lado){
-                return true;
-            }
-
-            pontaDireita = t.peekLast().getValorB();
-            if(pontaDireita == lado){
-                return true;
-            }
+            if(encaixaEsquerda(p) || encaixaDireita(p)) return true;
         }
         return false;
-
     }
+
 
 
     @Override

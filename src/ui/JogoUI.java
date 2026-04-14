@@ -13,5 +13,6 @@ public interface JogoUI {
     int numeroPecas(int tamanho);
     int escolhaPeca();
     void exibirVencedor(Jogador jogador1, Jogador jogador2);
+    int escolherLado();
 
 }
