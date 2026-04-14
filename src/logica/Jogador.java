@@ -1,3 +1,5 @@
+package logica;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -17,23 +19,6 @@ public class Jogador {
         }
         return mao;
 
-    }
-
-    public void imprimirMao() {
-        for (Peca p : mao) {
-            System.out.print("  " + p.getValorA() + "  ");
-        }
-        System.out.println();
-
-        for (Peca p : mao) {
-            System.out.print(" --- ");
-        }
-        System.out.println();
-
-        for (Peca p : mao) {
-            System.out.print("  " + p.getValorB() + "  ");
-        }
-        System.out.println();
     }
 
     public Peca removerPeca(int indice){
