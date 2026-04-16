@@ -21,6 +21,12 @@ public class Jogador {
 
     }
 
+    public Peca comprarPeca(ArrayList<Peca> monte){
+        Collections.shuffle(monte);
+        Peca pecaComprada = monte.remove(0);
+        return pecaComprada;
+    }
+
     public Peca removerPeca(int indice){
         Peca p = mao.get(indice);
         mao.remove(indice);

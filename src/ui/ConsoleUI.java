@@ -100,4 +100,12 @@ public class ConsoleUI implements JogoUI{
         int lado = scanner.nextInt();
         return lado;
     }
+
+    @Override
+    public boolean habilitarCompras() {
+        System.out.println("Quer jogar com compras?\n0 - sim\n1 - não");
+        int compraHabilitada = scanner.nextInt();
+        if(compraHabilitada == 0) return true;
+        else return false;
+    }
 }

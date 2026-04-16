@@ -14,5 +14,6 @@ public interface JogoUI {
     int escolhaPeca();
     void exibirVencedor(Jogador jogador1, Jogador jogador2);
     int escolherLado();
+    boolean habilitarCompras();
 
 }
